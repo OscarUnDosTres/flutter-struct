@@ -13,6 +13,7 @@ class ServicesProvider {
       list.add(Service.fromJSON(json: jsonEncode(element)));
     }
 
+    // Set 2 seconds delayed for simulating an API calls :)
     return Future.delayed(const Duration(seconds: 2)).then((value) => list);
   }
 }
