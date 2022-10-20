@@ -33,6 +33,12 @@ final GoRouter router = GoRouter(
               builder: (BuildContext context, GoRouterState state) {
                 return const UserIdView();
               }),
+          GoRoute(
+            path: 'upload-file',
+            builder: (BuildContext context, GoRouterState state) {
+              return UserIdView();
+            },
+          ),
         ]),
   ],
 );
