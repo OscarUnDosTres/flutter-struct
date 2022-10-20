@@ -3,6 +3,9 @@ import 'package:undostresflutter/blocs/user_bloc.dart';
 import 'package:undostresflutter/data/api/user_provider.dart';
 import 'package:undostresflutter/data/repositories/user_repository.dart';
 
+import 'dart:ui' as ui;
+import 'dart:html' as html;
+
 class UserIdView extends StatefulWidget {
   const UserIdView({super.key});
 
@@ -21,6 +24,23 @@ class _UserIdView extends State<UserIdView> {
   void dispose() {
     _bloc.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // ignore: undefined_prefixed_name
+    ui.platformViewRegistry.registerViewFactory(
+      "recaptcha",
+      (int viewId) => html.IFrameElement()
+        ..style.height = '100%'
+        ..style.width = '100%'
+        ..src = '/assets/html/recaptcha.html'
+        ..style.border = 'none',
+    );
+    html.window.onMessage.listen((event) {
+      _bloc.captchaCompleted();
+    });
   }
 
   @override
@@ -72,9 +92,15 @@ class _UserIdView extends State<UserIdView> {
                 _isButtonDisabled = false;
                 var exists = snapshot.data as bool;
                 if (exists) {
-                  return const Text("El usuario existe en db");
+                  return const Text(
+                    "El usuario existe en db",
+                    style: TextStyle(color: Colors.green),
+                  );
                 } else {
-                  return const Text("El usuario no existe en db");
+                  return const Text(
+                    "El usuario no existe en db",
+                    style: TextStyle(color: Colors.red),
+                  );
                 }
               } else if (snapshot.hasError) {
                 if (snapshot.error is LoadingException) {
@@ -89,7 +115,17 @@ class _UserIdView extends State<UserIdView> {
               } else {
                 return const SizedBox.shrink();
               }
-            })
+            }),
+        Container(
+          width: 400,
+          height: 200,
+          child: const Directionality(
+            textDirection: TextDirection.ltr,
+            child: HtmlElementView(
+              viewType: 'recaptcha',
+            ),
+          ),
+        ),
       ]),
     );
   }
