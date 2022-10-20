@@ -1,21 +1,38 @@
+// import 'dart:js';
+
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:undostresflutter/data/models/services.dart';
 import 'package:undostresflutter/views/home/home_view.dart';
+import 'package:undostresflutter/views/services/service_view.dart';
+import 'package:undostresflutter/views/test/test_view.dart';
+import 'package:undostresflutter/views/user/user_id_view.dart';
 
-const homeScreen = "/home";
-final routes = <String, Widget Function(BuildContext)>{
-  "/home": (context) => HomeView(title: 'UnDosTres')
-};
-
-class RouterMap {
-  Navigator navigator;
-
-  RouterMap({required this.navigator});
-
-  static String get initialRoute {
-    return homeScreen;
-  }
-
-  static Map<String, Widget Function(BuildContext)> get allRoutes {
-    return routes;
-  }
-}
+final GoRouter router = GoRouter(
+  routes: <RouteBase>[
+    GoRoute(
+        path: '/',
+        builder: (BuildContext context, GoRouterState state) {
+          return const HomeView(title: "title");
+        },
+        routes: <RouteBase>[
+          GoRoute(
+              path: 'service',
+              builder: (BuildContext context, GoRouterState state) {
+                return ServiceView(
+                  service: state.extra as ServiceItem,
+                );
+              }),
+          GoRoute(
+              path: 'test',
+              builder: (BuildContext context, GoRouterState state) {
+                return TestView();
+              }),
+          GoRoute(
+              path: 'verify-user-id',
+              builder: (BuildContext context, GoRouterState state) {
+                return const UserIdView();
+              }),
+        ]),
+  ],
+);

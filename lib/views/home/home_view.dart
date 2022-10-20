@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:undostresflutter/blocs/services_bloc.dart';
 import 'package:undostresflutter/views/home/widgets/home_button.dart';
 import 'package:undostresflutter/views/home/widgets/home_services.dart';
@@ -41,6 +42,7 @@ class _HomeViewState extends State<HomeView> {
             const SizedBox(height: 10),
             Center(
               child: ElevatedButton(
+                  key: Key('load_services_btn'),
                   onPressed: () {
                     _bloc.fetchServices();
                   },
@@ -58,6 +60,20 @@ class _HomeViewState extends State<HomeView> {
                 func: _bloc.clearCache,
                 stream: _bloc.allServices,
                 title: "Clear cache"),
+            Center(
+              child: ElevatedButton(
+                  onPressed: () {
+                    context.go("/verify-user-id");
+                  },
+                  child: const Text('Validar UserID')),
+            ),
+            Center(
+              child: ElevatedButton(
+                  onPressed: () {
+                    context.go("/auth");
+                  },
+                  child: const Text('Auth')),
+            ),
           ],
         ),
       ),

@@ -4,7 +4,7 @@ import 'package:undostresflutter/data/models/services.dart';
 import 'package:undostresflutter/data/repositories/services_repository.dart';
 
 class ServicesBloc {
-  final ServicesRepository repository;
+  final IServicesRepository repository;
 
   late BehaviorSubject<List<Service>?> _servicesFetcher;
   Stream<List<Service>?> get allServices => _servicesFetcher.stream;
