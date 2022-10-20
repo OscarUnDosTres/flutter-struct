@@ -12,13 +12,18 @@ class UserRepository implements IUserRepository {
     var res = await provider.verifyUserID(userId);
 
     if (res.statusCode != 200) {
+      if (res.statusCode == 401) {
+        return verifyUserID(userId);
+      }
+
       throw Exception(
           'Some Error happened. Please Check your internet connection and try again.');
     }
 
     try {
       var json = jsonDecode(res.body);
-      if (json["exists"]) {
+
+      if (json["data"]["result"]) {
         return true;
       } else {
         return false;

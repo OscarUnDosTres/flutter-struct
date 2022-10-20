@@ -53,15 +53,18 @@ class _UserIdView extends State<UserIdView> {
                         : () {
                             _bloc.verifyExistUser(controller.text);
                           },
-                    child: const Text('Verificar'));
+                    child: const Text('Enviar'));
               } else {
                 return ElevatedButton(
                     onPressed: () {
                       _bloc.verifyExistUser(controller.text);
                     },
-                    child: const Text('Verificar'));
+                    child: const Text('Enviar'));
               }
             }),
+        const SizedBox(
+          height: 10,
+        ),
         StreamBuilder(
             stream: _bloc.verifyUser,
             builder: (context, snapshot) {
@@ -69,16 +72,16 @@ class _UserIdView extends State<UserIdView> {
                 _isButtonDisabled = false;
                 var exists = snapshot.data as bool;
                 if (exists) {
-                  return const Text("The user ID is valid");
+                  return const Text("El usuario existe en db");
                 } else {
-                  return const Text("The user Id is NOT valid");
+                  return const Text("El usuario no existe en db");
                 }
               } else if (snapshot.hasError) {
                 if (snapshot.error is LoadingException) {
-                  return const Text("verifying userid please wait.");
+                  return const Text("Verificando usuario porfavor espere.");
                 } else if (snapshot.error is FormatException) {
                   _isButtonDisabled = false;
-                  return const Text("The given id is not a valid integer");
+                  return const Text("El ID no es Valido");
                 } else {
                   _isButtonDisabled = false;
                   return Text(snapshot.error.toString());
