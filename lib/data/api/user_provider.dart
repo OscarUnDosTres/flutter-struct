@@ -11,7 +11,7 @@ class UserProvider implements IUserProvider {
       //   "Content-type": "application/json",
       //   "Accept": "*/*",
       // },
-      body: jsonEncode(<String, int>{'id': userId}),
+      body: jsonEncode(<String, int>{'id': userId, 'flag': 1}),
     );
   }
 }

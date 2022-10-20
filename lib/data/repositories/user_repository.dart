@@ -8,12 +8,12 @@ class UserRepository implements IUserRepository {
   UserRepository({required this.provider});
 
   @override
-  Future<bool> verifyUserID(int userId) async {
+  Future<bool> verifyUserID(int userId, {bool retry = false}) async {
     var res = await provider.verifyUserID(userId);
 
     if (res.statusCode != 200) {
-      if (res.statusCode == 401) {
-        return verifyUserID(userId);
+      if (res.statusCode == 401 && !retry) {
+        return verifyUserID(userId, retry: true);
       }
 
       throw Exception(
