@@ -37,7 +37,7 @@ final GoRouter router = GoRouter(
                 return const UserIdView();
               }),
           GoRoute(
-            path: 'captcha',
+            path: 'upload-file',
             builder: (BuildContext context, GoRouterState state) {
               return const UploadFileView();
             },
