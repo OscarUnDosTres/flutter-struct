@@ -8,17 +8,22 @@ class UserRepository implements IUserRepository {
   UserRepository({required this.provider});
 
   @override
-  Future<bool> verifyUserID(int userId) async {
+  Future<bool> verifyUserID(int userId, {bool retry = false}) async {
     var res = await provider.verifyUserID(userId);
 
     if (res.statusCode != 200) {
+      if (res.statusCode == 401 && !retry) {
+        return verifyUserID(userId, retry: true);
+      }
+
       throw Exception(
           'Some Error happened. Please Check your internet connection and try again.');
     }
 
     try {
       var json = jsonDecode(res.body);
-      if (json["exists"]) {
+
+      if (json["data"]["result"]) {
         return true;
       } else {
         return false;

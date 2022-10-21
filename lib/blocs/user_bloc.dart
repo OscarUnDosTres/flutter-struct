@@ -49,3 +49,5 @@ class UserBloc {
 }
 
 class LoadingException implements Exception {}
+
+class CaptchaException implements Exception {}

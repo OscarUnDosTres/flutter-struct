@@ -15,8 +15,6 @@ class _UserIdView extends State<UserIdView> {
       UserBloc(repository: UserRepository(provider: UserProvider()));
   final controller = TextEditingController();
 
-  bool _isButtonDisabled = false;
-
   @override
   void dispose() {
     _bloc.dispose();
@@ -53,40 +51,46 @@ class _UserIdView extends State<UserIdView> {
                         : () {
                             _bloc.verifyExistUser(controller.text);
                           },
-                    child: const Text('Verificar'));
+                    child: const Text('Enviar'));
               } else {
                 return ElevatedButton(
                     onPressed: () {
                       _bloc.verifyExistUser(controller.text);
                     },
-                    child: const Text('Verificar'));
+                    child: const Text('Enviar'));
               }
             }),
+        const SizedBox(
+          height: 10,
+        ),
         StreamBuilder(
             stream: _bloc.verifyUser,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                _isButtonDisabled = false;
                 var exists = snapshot.data as bool;
                 if (exists) {
-                  return const Text("The user ID is valid");
+                  return const Text(
+                    "El usuario existe en db",
+                    style: TextStyle(color: Colors.green),
+                  );
                 } else {
-                  return const Text("The user Id is NOT valid");
+                  return const Text(
+                    "El usuario no existe en db",
+                    style: TextStyle(color: Colors.red),
+                  );
                 }
               } else if (snapshot.hasError) {
                 if (snapshot.error is LoadingException) {
-                  return const Text("verifying userid please wait.");
+                  return const Text("Verificando usuario porfavor espere.");
                 } else if (snapshot.error is FormatException) {
-                  _isButtonDisabled = false;
-                  return const Text("The given id is not a valid integer");
+                  return const Text("El ID no es Valido");
                 } else {
-                  _isButtonDisabled = false;
                   return Text(snapshot.error.toString());
                 }
               } else {
                 return const SizedBox.shrink();
               }
-            })
+            }),
       ]),
     );
   }
