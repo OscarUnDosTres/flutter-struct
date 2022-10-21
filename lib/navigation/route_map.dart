@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:undostresflutter/data/models/services.dart';
+import 'package:undostresflutter/views/captcha/captcha_view.dart';
 import 'package:undostresflutter/views/home/home_view.dart';
 import 'package:undostresflutter/views/services/service_view.dart';
 import 'package:undostresflutter/views/test/test_view.dart';
@@ -45,6 +46,12 @@ final GoRouter router = GoRouter(
             path: 'scroller',
             builder: (BuildContext context, GoRouterState state) {
               return const ScrollerView();
+            },
+          ),
+          GoRoute(
+            path: 'captcha',
+            builder: (BuildContext context, GoRouterState state) {
+              return CaptchaView();
             },
           ),
         ]),

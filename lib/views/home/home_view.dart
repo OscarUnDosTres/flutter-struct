@@ -81,6 +81,13 @@ class _HomeViewState extends State<HomeView> {
                   },
                   child: const Text('Scroller')),
             ),
+            Center(
+              child: ElevatedButton(
+                  onPressed: () {
+                    context.go("/captcha");
+                  },
+                  child: const Text('Captcha')),
+            ),
           ],
         ),
       ),
