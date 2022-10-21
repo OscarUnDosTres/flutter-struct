@@ -70,9 +70,10 @@ class _HomeViewState extends State<HomeView> {
             Center(
               child: ElevatedButton(
                   onPressed: () {
-                    context.go("/auth");
+                    context.go("/upload-file");
                   },
-                  child: const Text('Auth')),
+                  child: const Text('Upload Files')),
+
             ),
           ],
         ),
