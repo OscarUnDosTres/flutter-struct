@@ -7,6 +7,7 @@ import 'package:undostresflutter/views/home/home_view.dart';
 import 'package:undostresflutter/views/services/service_view.dart';
 import 'package:undostresflutter/views/test/test_view.dart';
 import 'package:undostresflutter/views/user/user_id_view.dart';
+import 'package:undostresflutter/views/captcha/captcha_view.dart';
 import 'package:undostresflutter/views/upload_file/upload_file_view.dart';
 import 'package:undostresflutter/views/scroller/scroller.dart';
 
