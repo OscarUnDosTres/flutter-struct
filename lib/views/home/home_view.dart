@@ -73,7 +73,13 @@ class _HomeViewState extends State<HomeView> {
                     context.go("/upload-file");
                   },
                   child: const Text('Upload Files')),
-
+            ),
+            Center(
+              child: ElevatedButton(
+                  onPressed: () {
+                    context.go("/scroller");
+                  },
+                  child: const Text('Scroller')),
             ),
           ],
         ),
