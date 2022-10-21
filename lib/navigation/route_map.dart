@@ -8,6 +8,7 @@ import 'package:undostresflutter/views/services/service_view.dart';
 import 'package:undostresflutter/views/test/test_view.dart';
 import 'package:undostresflutter/views/user/user_id_view.dart';
 import 'package:undostresflutter/views/upload_file/upload_file_view.dart';
+import 'package:undostresflutter/views/scroller/scroller.dart';
 
 final GoRouter router = GoRouter(
   routes: <RouteBase>[
@@ -38,6 +39,12 @@ final GoRouter router = GoRouter(
             path: 'upload-file',
             builder: (BuildContext context, GoRouterState state) {
               return const UploadFileView();
+            },
+          ),
+          GoRoute(
+            path: 'scroller',
+            builder: (BuildContext context, GoRouterState state) {
+              return const ScrollerView();
             },
           ),
         ]),
