@@ -1,15 +1,28 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
 
 class ImagePickerProvider extends ChangeNotifier {
   List<File> selectedFiles = [];
+  Uint8List webImage = Uint8List(8);
 
   Future<bool> pickImages() async {
     try {
-      if (Platform.isAndroid) {
+      if (kIsWeb) {
+        final ImagePicker pickerWeb = ImagePicker();
+        var selectedImage = await pickerWeb.pickImage(source: ImageSource.gallery);
+        
+        if (selectedImage != null) {
+          selectedFiles.add(File("a"));
+          webImage = await selectedImage.readAsBytes();
+          notifyListeners();
+
+          return true;
+        }
+      } else if (Platform.isAndroid) {
         final picker = ImagePicker();
         var result = await picker.pickMultiImage();
         if (result != null) {
@@ -17,8 +30,6 @@ class ImagePickerProvider extends ChangeNotifier {
             selectedFiles.add(File(kFile.path));
             notifyListeners();
           });
-
-          log(selectedFiles.length.toString());
           
           return true;
         }
@@ -30,15 +41,6 @@ class ImagePickerProvider extends ChangeNotifier {
             selectedFiles.add(File(kFilePath!));
             notifyListeners();
           });
-          
-          return true;
-        }
-      } else if (kIsWeb) {
-        log("hola");
-        final pickerWeb = ImagePicker();
-        var selectedImage = await pickerWeb.pickImage(source: ImageSource.gallery);
-        if (selectedImage != null) {
-          selectedFiles.add(File(selectedImage.path));
           
           return true;
         }

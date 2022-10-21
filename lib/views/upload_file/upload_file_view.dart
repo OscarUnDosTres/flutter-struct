@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:undostresflutter/views/upload_file/image_picker.dart';
@@ -68,7 +69,7 @@ class _UploadFileView extends State<UploadFileView> {
                         imagePickerProvider(renderUI: false).removeFile( file: img );
                       },
                       child: Container(
-                        child: Image.file(img),
+                        child: kIsWeb ? Image.memory(imagePickerProvider(renderUI: false).webImage, fit: BoxFit.fill) : Image.file(img),
                       ),
                     ), 
                   );
