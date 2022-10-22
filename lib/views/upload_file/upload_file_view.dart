@@ -68,14 +68,21 @@ class _UploadFileView extends State<UploadFileView> {
                       onDoubleTap: () {
                         imagePickerProvider(renderUI: false).removeFile( file: img );
                       },
-                      child: Container(
-                        child: kIsWeb ? Image.memory(imagePickerProvider(renderUI: false).webImage, fit: BoxFit.fill) : Image.file(img),
-                      ),
-                    ), 
+                      child: Row( children:[
+                        Container(
+                          child: kIsWeb ? Image.memory(imagePickerProvider(renderUI: false).webImage, fit: BoxFit.fill) : Image.file(img),
+                        ),
+                        const SizedBox(width: 10),
+                        Container(
+                          child: kIsWeb ? Text(imagePickerProvider(renderUI: false).webImage_name) : Text(img.path),
+                        )
+                      ]), 
+                    )
                   );
                 }
               ),
           ),
+          
       ]),
     );
     

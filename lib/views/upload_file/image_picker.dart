@@ -8,6 +8,7 @@ import 'package:file_picker/file_picker.dart';
 class ImagePickerProvider extends ChangeNotifier {
   List<File> selectedFiles = [];
   Uint8List webImage = Uint8List(8);
+  String webImage_name = "";
 
   Future<bool> pickImages() async {
     try {
@@ -17,6 +18,7 @@ class ImagePickerProvider extends ChangeNotifier {
         
         if (selectedImage != null) {
           selectedFiles.add(File("a"));
+          webImage_name = selectedImage.name;
           webImage = await selectedImage.readAsBytes();
           notifyListeners();
 
