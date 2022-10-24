@@ -74,7 +74,7 @@ class _UploadFileView extends State<UploadFileView> {
                         ),
                         const SizedBox(width: 10),
                         Container(
-                          child: kIsWeb ? Text(imagePickerProvider(renderUI: false).webImage_name) : Text(img.path),
+                          child: kIsWeb ? Text(imagePickerProvider(renderUI: false).webImage_name) : Text(img.path.toString().split("/")[img.path.toString().split("/").length-1]  ),
                         )
                       ]), 
                     )
