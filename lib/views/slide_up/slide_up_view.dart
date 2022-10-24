@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -15,6 +17,7 @@ class _SlideUpView extends State<SlideUpView> {
   void dispose() {
     super.dispose();
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -34,22 +37,16 @@ class _SlideUpView extends State<SlideUpView> {
       body: SizedBox.expand(
         child: Stack(
           children: <Widget>[
-            if (kIsWeb || Platform.isLinux || Platform.isMacOS || Platform.isWindows)
-              const Align(
-                alignment: Alignment.center,
-                child: Text("Slide up is only available in mobile devices"),
-              ),
-            if (Platform.isAndroid || Platform.isIOS)
               const Align(
                 alignment: Alignment.center,
                 child: Text("Slide up page"),
               ),
               SizedBox.expand(
                 child: DraggableScrollableSheet(
-                  initialChildSize: 0.25,
-                  minChildSize: 0.12,
                   maxChildSize: 0.75,
-                  builder: (BuildContext context, scrollController) {
+                  minChildSize: 0.12,
+                  initialChildSize: 0.25,
+                  builder: (BuildContext context, ScrollController scrollController) {
                     return Container(
                       margin: const EdgeInsets.only(
                         left: 5.0, 
@@ -72,70 +69,79 @@ class _SlideUpView extends State<SlideUpView> {
                           ),
                         ],
                       ),
-                      child: ListView(
-                        controller: scrollController,
-                        children: <Widget>[
-                          Center(
-                            child: Container( // Barra de desplazamiento
-                              height: 5,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 216, 216, 216),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 25),
-                          const Text(
-                            "Slide Up Title",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          Container(
-                            height: 50,
-                            child: TextField(
-                              decoration: InputDecoration(
-                                hintText: "Enter a text",
-                                hintStyle: const TextStyle(fontWeight: FontWeight.w400),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(6.0)
+                      child: ScrollConfiguration(
+                        behavior: ScrollConfiguration.of(context).copyWith(
+                          dragDevices: {
+                            PointerDeviceKind.touch,
+                            PointerDeviceKind.mouse,
+                          },
+                        ),
+                        child: ListView(
+                          controller: scrollController,
+                          children: <Widget>[
+                            Center(
+                              child: Container( // Barra de desplazamiento
+                                height: 5,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  color: const Color.fromARGB(255, 216, 216, 216),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 20),
-                          const ListTile(
-                            title: Text("Data 1"),
-                          ),
-                          const ListTile(
-                            title: Text("Data 2"),
-                          ),
-                          const ListTile(
-                            title: Text("Data 3"),
-                          ),
-                          const ListTile(
-                            title: Text("Data 3"),
-                          ),
-                          const ListTile(
-                            title: Text("Data 4"),
-                          ),
-                          const ListTile(
-                            title: Text("Data 5"),
-                          ),
-                          const ListTile(
-                            title: Text("Data 6"),
-                          ),
-                          const ListTile(
-                            title: Text("Data 7"),
-                          ),
-                          const ListTile(
-                            title: Text("Data 8"),
-                          ),
-                        ],
-                      ),
+                            const SizedBox(height: 25),
+                            const Text(
+                              "Slide Up Title",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Container(
+                              height: 50,
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  hintText: "Enter a text",
+                                  hintStyle: const TextStyle(fontWeight: FontWeight.w400),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(6.0)
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            const ListTile(
+                              title: Text("Data 1"),
+                            ),
+                            const ListTile(
+                              title: Text("Data 2"),
+                            ),
+                            const ListTile(
+                              title: Text("Data 3"),
+                            ),
+                            const ListTile(
+                              title: Text("Data 3"),
+                            ),
+                            const ListTile(
+                              title: Text("Data 4"),
+                            ),
+                            const ListTile(
+                              title: Text("Data 5"),
+                            ),
+                            const ListTile(
+                              title: Text("Data 6"),
+                            ),
+                            const ListTile(
+                              title: Text("Data 7"),
+                            ),
+                            const ListTile(
+                              title: Text("Data 8"),
+                            ),
+                          ],
+                        ),
+                    ),
+
                     );
                   },
                 ),
