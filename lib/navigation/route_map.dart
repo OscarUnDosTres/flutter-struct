@@ -11,6 +11,8 @@ import 'package:undostresflutter/views/captcha/captcha_view.dart';
 import 'package:undostresflutter/views/upload_file/upload_file_view.dart';
 import 'package:undostresflutter/views/scroller/scroller.dart';
 
+import '../views/slide_up/slide_up_view.dart';
+
 final GoRouter router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
@@ -51,7 +53,13 @@ final GoRouter router = GoRouter(
           GoRoute(
             path: 'captcha',
             builder: (BuildContext context, GoRouterState state) {
-              return CaptchaView();
+              return const CaptchaView();
+            },
+          ),
+          GoRoute(
+            path: 'slide-up',
+            builder: (BuildContext context, GoRouterState state) {
+              return const SlideUpView();
             },
           ),
         ]),
