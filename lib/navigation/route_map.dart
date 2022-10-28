@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:undostresflutter/data/models/services.dart';
+import 'package:undostresflutter/views/apple/apple_login_view.dart';
 import 'package:undostresflutter/views/home/home_view.dart';
 import 'package:undostresflutter/views/services/service_view.dart';
 import 'package:undostresflutter/views/test/test_view.dart';
@@ -60,6 +61,12 @@ final GoRouter router = GoRouter(
             path: 'slide-up',
             builder: (BuildContext context, GoRouterState state) {
               return const SlideUpView();
+            },
+          ),
+          GoRoute(
+            path: 'apple-login',
+            builder: (BuildContext context, GoRouterState state) {
+              return const AppleLoginView();
             },
           ),
         ]),
