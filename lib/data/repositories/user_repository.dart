@@ -32,8 +32,37 @@ class UserRepository implements IUserRepository {
       return false;
     }
   }
+
+  @override
+  Future<bool> verifyUserWallet(int userId, {bool retry = false}) async {
+    var res = await provider.verifyUserWallet(userId);
+
+    if (res.statusCode != 200) {
+      if (res.statusCode == 401 && !retry) {
+        return verifyUserWallet(userId, retry: true);
+      }
+
+      throw Exception(
+          'Some Error happened. Please Check your internet connection and try again.');
+    }
+
+    try {
+      var json = jsonDecode(res.body);
+
+      if (json["data"]["result"]) {
+        //////////////////// todo: getting number as result and sending it
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
 }
 
 abstract class IUserRepository {
   Future<bool> verifyUserID(int userId);
+
+  Future<bool> verifyUserWallet(int userId);
 }
