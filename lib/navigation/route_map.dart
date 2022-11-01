@@ -11,6 +11,7 @@ import 'package:undostresflutter/views/user/user_id_view.dart';
 import 'package:undostresflutter/views/captcha/captcha_view.dart';
 import 'package:undostresflutter/views/upload_file/upload_file_view.dart';
 import 'package:undostresflutter/views/scroller/scroller.dart';
+import 'package:undostresflutter/views/user/user_wallet_view.dart';
 
 import '../views/slide_up/slide_up_view.dart';
 
@@ -67,6 +68,12 @@ final GoRouter router = GoRouter(
             path: 'apple-login',
             builder: (BuildContext context, GoRouterState state) {
               return const AppleLoginView();
+            },
+          ),
+          GoRoute(
+            path: 'verify-user-wallet',
+            builder: (BuildContext context, GoRouterState state) {
+              return const UserWalletView();
             },
           ),
         ]),

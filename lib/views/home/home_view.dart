@@ -95,6 +95,13 @@ class _HomeViewState extends State<HomeView> {
                   },
                   child: const Text('Slide Up')),
             ),
+            Center(
+              child: ElevatedButton(
+                  onPressed: () {
+                    context.go("/verify-user-wallet");
+                  },
+                  child: const Text('Validar wallet de un ID')),
+            ),
           ],
         ),
       ),
