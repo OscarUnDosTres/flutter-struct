@@ -7,8 +7,8 @@ class UserBloc {
   late PublishSubject<bool> _userVerify;
   Stream<bool> get verifyUser => _userVerify.stream;
 
-  late PublishSubject<bool> _userVerifyWallet;
-  Stream<bool> get verifyUserWallet => _userVerifyWallet.stream;
+  late PublishSubject<double> _userVerifyWallet;
+  Stream<double> get verifyUserWallet => _userVerifyWallet.stream;
 
   late BehaviorSubject<bool> _isLoading;
   Stream<bool> get isLoading => _isLoading.stream;
@@ -16,7 +16,7 @@ class UserBloc {
 
   UserBloc({required this.repository}) {
     _userVerify = PublishSubject<bool>();
-    _userVerifyWallet = PublishSubject<bool>();
+    _userVerifyWallet = PublishSubject<double>();
     _isLoading = BehaviorSubject.seeded(false);
   }
 
@@ -51,7 +51,7 @@ class UserBloc {
     _userVerify.close();
   }
 
-  void verifyExistUserWallet(String userId) async {
+  void getUserWallet(String userId) async {
     _isLoading.add(true);
     late var id;
     try {
@@ -64,7 +64,7 @@ class UserBloc {
 
     _userVerifyWallet.addError(LoadingException());
     try {
-      repository.verifyUserWallet(id).then((value) {
+      repository.getUserWallet(id).then((value) {
         _userVerifyWallet.add(value);
         _isLoading.add(false);
       }).catchError((e) {

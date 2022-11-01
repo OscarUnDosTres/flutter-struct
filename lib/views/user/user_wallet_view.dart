@@ -49,15 +49,13 @@ class _UserWalletView extends State<UserWalletView> {
                     onPressed: snapshot.data as bool
                         ? null
                         : () {
-                            _bloc.verifyExistUserWallet(
-                                controller.text); ///////////
+                            _bloc.getUserWallet(controller.text); ///////////
                           },
                     child: const Text('Enviar'));
               } else {
                 return ElevatedButton(
                     onPressed: () {
-                      _bloc.verifyExistUserWallet(
-                          controller.text); ////////////////////
+                      _bloc.getUserWallet(controller.text); ////////////////////
                     },
                     child: const Text('Enviar'));
               }
@@ -69,10 +67,10 @@ class _UserWalletView extends State<UserWalletView> {
             stream: _bloc.verifyUserWallet,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                var exists = snapshot.data as bool;
-                if (exists) {
-                  return const Text(
-                    "El usuario existe en db, falta ver su wallet",
+                var exists = snapshot.data as double;
+                if (exists != -1.0) {
+                  return Text(
+                    "El wallet del usuario es: $exists",
                     style: TextStyle(color: Colors.green),
                   );
                 } else {
@@ -83,7 +81,7 @@ class _UserWalletView extends State<UserWalletView> {
                 }
               } else if (snapshot.hasError) {
                 if (snapshot.error is LoadingException) {
-                  return const Text("Verificando usuario porfavor espere.");
+                  return const Text("Buscando Wallet porfavor espere.");
                 } else if (snapshot.error is FormatException) {
                   return const Text("El ID no es Valido");
                 } else {

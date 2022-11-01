@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:undostresflutter/data/api/user_provider.dart';
 
@@ -34,12 +35,12 @@ class UserRepository implements IUserRepository {
   }
 
   @override
-  Future<bool> verifyUserWallet(int userId, {bool retry = false}) async {
-    var res = await provider.verifyUserWallet(userId);
+  Future<double> getUserWallet(int userId, {bool retry = false}) async {
+    var res = await provider.getUserWallet(userId);
 
     if (res.statusCode != 200) {
       if (res.statusCode == 401 && !retry) {
-        return verifyUserWallet(userId, retry: true);
+        return getUserWallet(userId, retry: true);
       }
 
       throw Exception(
@@ -49,14 +50,16 @@ class UserRepository implements IUserRepository {
     try {
       var json = jsonDecode(res.body);
 
-      if (json["data"]["result"]) {
+      if (json["data"]["result"] != false) {
         //////////////////// todo: getting number as result and sending it
-        return true;
+        var wallet = double.parse(json["data"]["result"]);
+        print(wallet);
+        return wallet;
       } else {
-        return false;
+        return -1.0;
       }
     } catch (e) {
-      return false;
+      return -1.0;
     }
   }
 }
@@ -64,5 +67,5 @@ class UserRepository implements IUserRepository {
 abstract class IUserRepository {
   Future<bool> verifyUserID(int userId);
 
-  Future<bool> verifyUserWallet(int userId);
+  Future<double> getUserWallet(int userId);
 }
