@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../keys/keys.dart';
+
 class ScrollerView extends StatefulWidget {
   const ScrollerView({super.key});
 
@@ -33,6 +35,7 @@ class _ScrollerViewState extends State<ScrollerView> {
             thickness: 10,
             notificationPredicate: (notif) => notif.depth == 1,
             child: SingleChildScrollView(
+              key: Keys.colorPaletteScrollView,
               controller: _vertical,
               child: SingleChildScrollView(
                 controller: _horizontal,
@@ -59,7 +62,7 @@ class _ScrollerViewState extends State<ScrollerView> {
                             DataCell(Container(
                                 height: 20, width: 50, color: color[shade])),
                             DataCell(Text(color.toString())),
-                            DataCell(Text('$shade')),
+                            DataCell(Text(key: Key('$color $shade'), '$shade')),
                             DataCell(Text('1')),
                             DataCell(Text('1')),
                             DataCell(Text('1')),
