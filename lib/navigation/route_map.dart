@@ -2,18 +2,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:undostresflutter/data/models/services.dart';
-import 'package:undostresflutter/views/apple/apple_login_view.dart';
-import 'package:undostresflutter/views/home/home_view.dart';
-import 'package:undostresflutter/views/services/service_view.dart';
-import 'package:undostresflutter/views/test/test_view.dart';
-import 'package:undostresflutter/views/user/user_id_view.dart';
-import 'package:undostresflutter/views/captcha/captcha_view.dart';
-import 'package:undostresflutter/views/upload_file/upload_file_view.dart';
-import 'package:undostresflutter/views/scroller/scroller.dart';
-import 'package:undostresflutter/views/user/user_wallet_view.dart';
+import 'package:undostresflutter/models/services.dart';
+import 'package:undostresflutter/presentation/views/apple/apple_login_view.dart';
+import 'package:undostresflutter/presentation/views/home/home_view.dart';
+import 'package:undostresflutter/presentation/views/paypal/paypal_success.dart';
+import 'package:undostresflutter/presentation/views/paypal/paypal_view.dart';
+import 'package:undostresflutter/presentation/views/services/service_view.dart';
+import 'package:undostresflutter/presentation/views/test/test_view.dart';
+import 'package:undostresflutter/presentation/views/user/user_id_view.dart';
+import 'package:undostresflutter/presentation/views/captcha/captcha_view.dart';
+import 'package:undostresflutter/presentation/views/upload_file/upload_file_view.dart';
+import 'package:undostresflutter/presentation/views/scroller/scroller.dart';
+import 'package:undostresflutter/presentation/views/user/user_wallet_view.dart';
 
-import '../views/slide_up/slide_up_view.dart';
+import '../presentation/views/slide_up/slide_up_view.dart';
 
 final GoRouter router = GoRouter(
   routes: <RouteBase>[
@@ -23,6 +25,18 @@ final GoRouter router = GoRouter(
           return const HomeView(title: "title");
         },
         routes: <RouteBase>[
+          GoRoute(
+              path: 'paypal',
+              builder: (BuildContext context, GoRouterState state) {
+                return const PayPalView();
+              }),
+          GoRoute(
+              path: 'paypal-success/:payment/:token',
+              builder: (BuildContext context, GoRouterState state) {
+                String payment = state.params["payment"]!;
+                String token = state.params["token"]!;
+                return PayPalSuccess(paymentID: payment, token: token);
+              }),
           GoRoute(
               path: 'service',
               builder: (BuildContext context, GoRouterState state) {
